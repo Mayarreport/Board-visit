@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Customer Visit Route — Dammam &amp; Al Khobar</title>
+<title>Dammam Board Visit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>/* required styles */
@@ -672,48 +672,61 @@ svg.leaflet-image-layer.leaflet-interactive path {
 :root{--purple:#5B2D8E;--purple-d:#3D1D61;--purple-l:#8B5FC7;--gold:#D4A017;--gold-l:#F0D68A;--green:#2D8C3C;--red:#C0392B;--bg:#F5F0EB;--card:#fff;--tx:#2D2D2D;--tx2:#6B6B6B;--bd:#E0D6CC;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:'Open Sans','Segoe UI',Tahoma,sans-serif;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Open Sans','Segoe UI',Tahoma,sans-serif;line-height:1.45;font-size:14px}
 .num,h1,h2,h3,button,.gbtn{font-family:'Montserrat','Segoe UI',sans-serif}
 .num{font-variant-numeric:tabular-nums}
-header{background:var(--purple-d);color:#fff;padding:22px 18px 26px;border-bottom:4px solid var(--gold)}
+header{background:var(--purple-d);color:#fff;padding:16px 18px 18px;border-bottom:4px solid var(--gold)}
 .wrap{max-width:1100px;margin:0 auto}
-header h1{margin:0 0 4px;font-size:clamp(1.25rem,4vw,1.9rem);font-weight:800}
-header p{margin:0 0 14px;color:#d9cbea;font-size:.92rem}
-.gbtn{display:inline-block;background:var(--gold);color:#2b1a00;font-weight:700;text-decoration:none;padding:10px 16px;border-radius:8px}
+header h1{margin:0 0 2px;font-size:clamp(1.15rem,3.5vw,1.6rem);font-weight:800}
+header p{margin:0 0 10px;color:#d9cbea;font-size:.85rem}
+.gbtn{display:inline-block;background:var(--gold);color:#2b1a00;font-weight:700;text-decoration:none;padding:8px 14px;border-radius:6px;font-size:.85rem}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-main{padding:16px 14px 120px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:-14px}
-.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;border-left:4px solid var(--gold)}
-.kpi b{display:block;font-size:1.5rem;color:var(--purple);line-height:1.2}
-.kpi b small{font-size:.8rem;color:var(--tx2);font-weight:500;margin-left:3px}
-.kpi span{font-size:.82rem;color:var(--tx2)}
+main{padding:14px 14px 120px}
+details.sheet{background:var(--card);border:1px solid var(--bd);border-radius:8px;margin-top:-10px;overflow:hidden}
+details.sheet summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--purple-d);font-size:.95rem;user-select:none}
+details.sheet summary::-webkit-details-marker{display:none}
+details.sheet summary::before{content:"▸";margin-right:8px;color:var(--gold);transition:transform .15s}
+details.sheet[open] summary::before{transform:rotate(90deg)}
+details.sheet summary span:first-child{display:flex;align-items:center}
+.tblwrap{overflow-x:auto;border-top:1px solid var(--bd)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+th,td{border:1px solid #cfc5b8;padding:6px 9px;text-align:center;white-space:nowrap}
+th{background:var(--purple);color:#fff;font-weight:700;font-size:12.5px}
+th.l,td.l{text-align:left}
+td.l.name{font-weight:600}
+tbody tr:nth-child(even){background:#faf7f3}
+td.c-done{background:#92D050;color:#1d3d0a;font-weight:700}
+td.c-review{background:#FFFF00;color:#4a3b00;font-weight:700}
+td.c-pending{color:var(--tx2)}
+td.warn{color:var(--red);font-weight:600}
+tr.r-start td,tr.r-end td{background:#f1ecf7;font-weight:600}
 .bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}
-h2{margin:0;font-size:1.1rem;color:var(--purple-d)}
-.hint{color:var(--tx2);font-size:.85rem}
-#map{height:min(62vh,540px);min-height:340px;border-radius:12px;border:1px solid var(--bd);background:#e9e4dc;z-index:0}
+h2{margin:0;font-size:1rem;color:var(--purple-d)}
+.hint{color:var(--tx2);font-size:.8rem}
+#map{height:min(58vh,500px);min-height:320px;border-radius:12px;border:1px solid var(--bd);background:#e9e4dc;z-index:0}
 #map.picking{cursor:crosshair;outline:4px solid var(--gold)}
 .pin{width:30px;height:30px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center;border:2px solid #fff;box-shadow:0 2px 5px rgba(40,20,70,.45);background:var(--purple)}
 .pin i{transform:rotate(45deg);font-style:normal;color:#fff;font:700 13px 'Montserrat',sans-serif}
 .pin.done{background:var(--green)}.pin.start{background:#2b1a00;border-color:var(--gold)}.pin.start i{font-size:11px}.stop.start .n{background:#2b1a00;color:var(--gold-l)}.pin.review{background:var(--gold)}.pin.review i{color:#2b1a00}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 2px 0;font-size:.85rem;color:var(--tx2)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin:8px 2px 0;font-size:.78rem;color:var(--tx2)}
 .legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--c)}
 ol{list-style:none;margin:0;padding:0}
-.hop{margin:0 0 0 28px;padding:3px 0 3px 22px;color:var(--tx2);font-size:.85rem;border-left:2px dashed var(--purple-l)}
+.hop{margin:0 0 0 26px;padding:2px 0 2px 20px;color:var(--tx2);font-size:.78rem;border-left:2px dashed var(--purple-l)}
 .hop.long{color:var(--red);font-weight:700}
-.stop{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px}
-.stop .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;background:var(--purple)}
+.stop{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 11px}
+.stop .n{width:30px;height:30px;font-size:.85rem;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;background:var(--purple)}
 .stop.done .n{background:var(--green)}.stop.review .n{background:var(--gold);color:#2b1a00}.stop.off .n{background:#b9b0a6}
-.stop h3{margin:0;font-size:1rem;font-weight:700}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px;font-size:.78rem}
+.stop h3{margin:0;font-size:.92rem;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;font-size:.74rem}
 .tag{padding:1px 8px;border-radius:20px;background:#efe7f8;color:var(--purple-d);font-weight:700}
 .tag.s-done{background:#E8F5E9;color:#1d6a2a}.tag.s-review{background:#fbf0c9;color:#6b4e00}.tag.s-pending{background:#eee;color:#555}.tag.warn{background:#FDEDEC;color:var(--red)}
-.note{margin:6px 0 0;font-size:.88rem;color:#4a3b20;background:#fdf8ec;border-left:3px solid var(--gold);padding:5px 9px;border-radius:0 6px 6px 0;white-space:pre-wrap}
-.stop a.open{color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap;font-size:.9rem;padding:6px 8px}
+.note{margin:5px 0 0;font-size:.82rem;color:#4a3b20;background:#fdf8ec;border-left:3px solid var(--gold);padding:5px 9px;border-radius:0 6px 6px 0;white-space:pre-wrap}
+.stop a.open{color:var(--purple);font-weight:700;text-decoration:none;white-space:nowrap;font-size:.82rem;padding:6px 8px}
 .tools{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;border-top:1px dashed var(--bd);padding-top:8px}
 button{font-size:.85rem;font-weight:700;border-radius:8px;border:1px solid var(--purple);background:#fff;color:var(--purple);padding:8px 12px;cursor:pointer;min-height:38px}
 button.pri{background:var(--purple);color:#fff}button.gold{background:var(--gold);border-color:var(--gold);color:#2b1a00}
 button.dng{border-color:var(--red);color:var(--red)}button:disabled{opacity:.35;cursor:default}
-.total{margin-top:14px;background:var(--purple-d);color:#fff;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;font-weight:700}
+.total{margin-top:12px;background:var(--purple-d);color:#fff;border-radius:8px;padding:11px 14px;display:flex;justify-content:space-between;font-weight:700;font-size:.92rem}
 .total b{color:var(--gold-l)}
 .foot{color:var(--tx2);font-size:.8rem;margin-top:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .foot button{border:0;background:none;color:var(--tx2);text-decoration:underline;padding:0;min-height:0;font-weight:500}
@@ -735,22 +748,23 @@ textarea{min-height:90px;resize:vertical}
 .row.end{justify-content:flex-end}
 .msg{font-size:.85rem;margin:0}.msg.ok{color:var(--green)}.msg.err{color:var(--red)}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:8px;font-size:.9rem;z-index:1000;display:none;max-width:90vw}
-@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.stop{grid-template-columns:auto 1fr}.stop a.open{grid-column:2;justify-self:start;padding-left:0}}
+@media(max-width:700px){.stop{grid-template-columns:auto 1fr}.stop a.open{grid-column:2;justify-self:start;padding-left:0}}
 </style>
 </head>
 <body>
 <div id="pickbar"><span>Tap the map where the store is</span><button id="pickcancel">Cancel</button></div>
 <header><div class="wrap">
-<h1>Customer Visit Route — Dammam &amp; Al Khobar</h1>
-<p>Mayar Foods field visit · Wednesday 23 Sep 2026 · DMM Airport 12:00 PM → Grand Hyatt Al Khobar 5:00 PM</p>
+<h1>Dammam Board Visit</h1>
+<p>Mayar Foods · Wednesday 23 September 2026</p>
 <a class="gbtn" id="gmaps" target="_blank" rel="noopener">↗ Open full route in Google Maps</a>
 </div></header>
 <main class="wrap">
-<section class="kpis" id="kpis"></section>
-<div class="bar"><h2>Map</h2><span class="hint">Tap any number to open the location</span></div>
+<details class="sheet" id="sheet" open><summary><span>Visit schedule</span><span class="hint" id="sheetcnt"></span></summary>
+<div class="tblwrap"><table id="tbl"><thead><tr><th>#</th><th class="l">Store Name</th><th>Channel</th><th>Team Confirm</th><th class="l">Action Plan</th><th>Expected Time</th></tr></thead><tbody></tbody></table></div></details>
+<div class="bar"><h2>Route map</h2><span class="hint">Tap any number to open the location</span></div>
 <div id="map"></div>
 <div class="legend"><span style="--c:#2b1a00">Start (airport)</span><span style="--c:var(--green)">Confirmed</span><span style="--c:var(--gold)">Confirmed — action needed</span><span style="--c:var(--purple)">Pending team confirmation</span></div>
-<div class="bar"><h2>Visit sequence &amp; distances</h2><span class="hint" id="cnt"></span></div>
+<div class="bar"><h2>Stop-by-stop details</h2><span class="hint" id="cnt"></span></div>
 <ol id="list"></ol>
 <div class="total"><span>Total route today</span><b class="num" id="tot"></b></div>
 <div class="bar"><h2>Buffer — reserve stores</h2><span class="hint">Not in today's route; can be added if time allows</span></div><ol id="offlist"></ol>
@@ -844,8 +858,11 @@ function render(fit){
     .on('click',()=>{if(!picking)window.open(g(s),'_blank')}).bindTooltip(st?'Start: '+esc(s.name):`${i-(hasS?1:0)+1}. ${esc(s.name)}`,{direction:'top',offset:[0,-28]}).addTo(layer)});
   if(fit&&F.length)map.fitBounds(F.map(s=>[s.lat,s.lng]),{padding:[36,36],maxZoom:15});
   const hops=F.slice(1).map((s,i)=>({d:km(F[i],s),a:F[i],b:s})),tot=len(F),mx=hops.length?hops.reduce((m,h)=>h.d>m.d?h:m):null;
-  $('kpis').innerHTML=[[r.filter(s=>!s.end).length,'','Stores to visit'],[esc(data.window||'–'),'','Visit window'],[data.avgMin||'–','min','Average time in each store'],[f(tot),'km','Total distance']]
-    .map(k=>`<div class="kpi"><b class="num">${k[0]}<small>${k[1]}</small></b><span>${k[2]}</span></div>`).join('');
+    const tb=[];
+  if(hasS)tb.push(`<tr class="r-start"><td>0</td><td class="l name">${esc(data.start.name)}</td><td>–</td><td>–</td><td class="l"></td><td class="num">${esc(data.start.time||'')}</td></tr>`);
+  r.forEach((s,i)=>tb.push(`<tr class="${s.end?'r-end':''}"><td>${i+1}</td><td class="l name">${esc(s.name)}</td><td>${s.end?'–':esc(s.ch)}</td><td class="c-${s.end?'':esc(s.st)}">${s.end?'–':(s.st==='pending'?'Pending':'Done')}</td><td class="l ${s.st==='review'?'warn':''}">${esc(s.note||'')}</td><td class="num">${esc(s.time||'')}</td></tr>`));
+  document.querySelector('#tbl tbody').innerHTML=tb.join('');
+  $('sheetcnt').textContent=`${r.filter(s=>!s.end).length} stores · ${f(tot)} km`;
   let h='';
   if(hasS)h+=`<li class="stop start"><span class="n">S</span><div><h3>${esc(data.start.name)}</h3><div class="meta"><span class="tag">Start</span>${data.start.time?`<span class="tag num" style="background:#2b1a00;color:var(--gold-l)">⏱ ${esc(data.start.time)}</span>`:''}</div></div><a class="open" href="${g(data.start)}" target="_blank" rel="noopener">Open location ↗</a></li>`;
   r.forEach((s,i)=>{const k=i+(hasS?1:0);
