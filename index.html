@@ -748,7 +748,34 @@ textarea{min-height:90px;resize:vertical}
 .row.end{justify-content:flex-end}
 .msg{font-size:.85rem;margin:0}.msg.ok{color:var(--green)}.msg.err{color:var(--red)}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:8px;font-size:.9rem;z-index:1000;display:none;max-width:90vw}
-@media(max-width:700px){.stop{grid-template-columns:auto 1fr}.stop a.open{grid-column:2;justify-self:start;padding-left:0}}
+dialog.sheetdlg{width:min(560px,100vw);max-height:92vh;margin:auto auto 0;border-radius:16px 16px 0 0;padding:0}
+@media(min-width:700px){dialog.sheetdlg{margin:auto;border-radius:14px}}
+.pf{display:flex;flex-direction:column;max-height:92vh}
+.pf-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:14px 16px 12px;background:var(--purple-d);color:#fff;border-bottom:3px solid var(--gold);position:sticky;top:0}
+.pf-head h2{color:#fff;font-size:1.05rem;margin:2px 0}
+.pf-kicker{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-l);font-weight:700}
+.pf-sub{font-size:.8rem;color:#d9cbea}
+#p-close{border:0;background:rgba(255,255,255,.15);color:#fff;width:34px;height:34px;border-radius:50%;padding:0;min-height:0;font-size:1rem;flex:none}
+.pf-body{overflow:auto;padding:12px 14px calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;background:var(--bg)}
+.pf-flag{background:#fdf8ec;border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 6px 6px 0;font-size:.85rem}
+.pf-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+.tile b{display:block;font-size:1.15rem;color:var(--purple);line-height:1.2}
+.tile small{color:var(--tx2);font-size:.7rem}
+.tile b.up{color:var(--green)}.tile b.dn{color:var(--red)}
+.pf-sec{background:#fff;border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.pf-sec h4{margin:0;padding:7px 11px;background:#efe7f8;color:var(--purple-d);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+.kv{display:grid;grid-template-columns:1fr auto;gap:0 12px}
+.kv div{padding:6px 11px;border-top:1px solid #f0ebe4;font-size:.85rem}
+.kv div:nth-child(odd){color:var(--tx2)}.kv div:nth-child(even){text-align:right;font-weight:600;word-break:break-word}
+.barz{padding:8px 11px 10px;display:grid;gap:6px;font-size:.78rem}
+.barz .b{display:grid;grid-template-columns:58px 1fr 60px;gap:8px;align-items:center}
+.barz .b i{display:block;height:9px;border-radius:5px;background:var(--purple)}.barz .b.ly i{background:#c7b6de}
+.barz .b span:last-child{text-align:right;font-weight:600}
+.clickable{cursor:pointer}
+tr.clickable:active,td.name:active{background:#efe7f8}
+.stop h3.clickable{color:var(--purple);text-decoration:underline dotted;text-underline-offset:3px}
+@media(max-width:700px){.pf-tiles{grid-template-columns:repeat(3,1fr)}.stop{grid-template-columns:auto 1fr}.stop a.open{grid-column:2;justify-self:start;padding-left:0}}
 </style>
 </head>
 <body>
@@ -793,6 +820,10 @@ textarea{min-height:90px;resize:vertical}
 </form></dialog>
 
 
+<dialog id="prof" class="sheetdlg"><div class="pf">
+<div class="pf-head"><div><div class="pf-kicker" id="p-kicker"></div><h2 id="p-name"></h2><div class="pf-sub" id="p-sub"></div></div><button type="button" id="p-close" aria-label="Close">✕</button></div>
+<div class="pf-body" id="p-body"></div>
+</div></dialog>
 <div id="toast" role="status"></div>
 
 <script>/* @preserve
@@ -814,6 +845,17 @@ const DEFAULT={updated:"2026-09-24T00:00:00Z",window:"12:45 – 4:15 PM",avgMin:
 {id:9,name:"Family Discount Store",ch:"TT",lat:26.4293423,lng:50.1169749,st:"done",note:"",time:"4:15 PM",on:true},
 {id:10,name:"Grand Hyatt Hotel — Al Khobar",ch:"Other",lat:26.290667876834508,lng:50.1784114,st:"done",note:"Final stop",time:"5:00 PM",on:true,end:true}
 ]};
+const PROFILES={
+"Top Up Center - Al Hussein New":{cust:"30015198",payer:"30010013",cname:"Al Hussain Company top up",ch:"Traditional Trade",region:"Eastern",branch:"Dammam Branch",route:"3012",sales:"Ali Abdullah Muslih",first:"2025-05-10",last:"2026-09-21",t26:94.595,t25:54.674,payerT:262.45,outlets:5,pctPayer:.3604,pctGroup:.3604,grpCh:.01692,pctCh:.0061},
+"Sharq Al Madeena Wholesale":{cust:"30009681",payer:"30009681",cname:"Sharq Almadinah For Trade",ch:"Wholesale",region:"Eastern",branch:"Dammam Branch",route:"3011",sales:"Ahmed Abdalaliem Elsayed Mariy",first:"2019-09-26",last:"2026-09-21",t26:393.421,t25:321.221,payerT:393.421,outlets:1,pctPayer:1,pctGroup:1,grpCh:.00916,pctCh:.00916},
+"Aswaq Al-Qaysoum":{cust:"30007534",payer:"30007534",cname:"Yaqeen Mufeed Al Qaisoom Company",ch:"DRD",region:"Eastern",branch:"Dammam Branch",route:"3004",sales:"Jiyas Ummasseril Shahul",first:"2018-01-11",last:"2026-09-21",t26:.864,t25:.794,payerT:.864,outlets:1,pctPayer:1,pctGroup:1,grpCh:.00014,pctCh:.00014},
+"Panda 40012":{cust:"40000347",payer:"40000427",cname:"Al Azizia Panda United Co.",ch:"Modern Trade",region:"Eastern",branch:"Dammam Branch",route:"3001",sales:"Hamoud Saeed Mohammed",first:"2018-01-07",last:"2026-09-22",t26:51.077,t25:79.65,payerT:15551.661,outlets:538,pctPayer:.00328,pctGroup:.00328,grpCh:.34545,pctCh:.00113},
+"Tamimi 115":{cust:"40000659",payer:"40000433",cname:"Tamimi Markets Company Limited",ch:"Modern Trade",region:"Eastern",branch:"Dammam Branch",route:"3001",sales:"Hamoud Saeed Mohammed",first:"2018-01-10",last:"2026-09-22",t26:5.539,t25:11.029,payerT:1109.717,outlets:136,pctPayer:.00499,pctGroup:.0023,grpCh:.05346,pctCh:.00012},
+"Al-Salam Market":{cust:"30009305",payer:"30009305",cname:"Salam Dammam Foodstuff Company",ch:"DRD",region:"Eastern",branch:"Dammam Branch",route:"3004",sales:"Jiyas Ummasseril Shahul",first:"2018-05-24",last:"2026-09-17",t26:1.083,t25:1.785,payerT:1.083,outlets:2,pctPayer:1,pctGroup:.24364,grpCh:.00072,pctCh:.00018},
+"Aswaq Al Rashid - Al Shatea Mall":{cust:"30016754",payer:"30016754",cname:"Mohamed Rasheed Al Rasheed Comp Trd",ch:"Wholesale",region:"Eastern",branch:"Dammam Branch",route:"3011",sales:"Ahmed Abdalaliem Elsayed Mariy",first:null,last:null,t26:null,t25:null,payerT:null,outlets:9,pctPayer:null,pctGroup:0,grpCh:.01775,pctCh:0,groupT:762.277,flag:"New outlet — no invoices yet. Al Rashid group: 9 outlets in KSA, 762.3 t in 2026 (mainly Riyadh, 558.9 t)."},
+"K Mart":{cust:"60000153",payer:"60000153",cname:"Keemart Trading Limited Company",ch:"Ecommerce",region:"Central",branch:"Riyadh Branch",route:"99111",sales:"Islam Elsayed Elsayed Elkallawi",first:"2025-07-15",last:"2026-09-22",t26:1602.225,t25:200.359,payerT:2034.773,outlets:2,pctPayer:.78742,pctGroup:.78742,grpCh:.25775,pctCh:.20296},
+"Family Discount Store":{cust:"30015419",payer:"30015419",cname:"Takhfidat Alayiliah Trd Company",ch:"Traditional Trade",region:"Eastern",branch:"Dammam Branch",route:"3009",sales:"Anwar Farag Laradhi",first:"2025-07-10",last:"2026-09-13",t26:138.692,t25:26.471,payerT:138.692,outlets:2,pctPayer:1,pctGroup:1,grpCh:.00894,pctCh:.00894}
+};
 const FILE='stores.json';
 const ST={done:"Confirmed",review:"Confirmed — action needed",pending:"Pending"};
 const $=id=>document.getElementById(id);
@@ -857,14 +899,14 @@ function render(fit){
   const hops=F.slice(1).map((s,i)=>({d:km(F[i],s),a:F[i],b:s})),tot=len(F),mx=hops.length?hops.reduce((m,h)=>h.d>m.d?h:m):null;
     const tb=[];
   if(hasS)tb.push(`<tr class="r-start"><td>0</td><td class="l name">${esc(data.start.name)}</td><td>–</td><td>–</td><td class="l"></td><td class="num">${esc(data.start.time||'')}</td></tr>`);
-  r.forEach((s,i)=>tb.push(`<tr class="${s.end?'r-end':''}"><td>${i+1}</td><td class="l name">${esc(s.name)}</td><td>${s.end?'–':esc(s.ch)}</td><td class="c-${s.end?'':esc(s.st)}">${s.end?'–':(s.st==='pending'?'Pending':'Done')}</td><td class="l ${s.st==='review'?'warn':''}">${esc(s.note||'')}</td><td class="num">${esc(s.time||'')}</td></tr>`));
+  r.forEach((s,i)=>tb.push(`<tr class="${s.end?'r-end':''} ${PROFILES[s.name]?'clickable':''}" data-p="${esc(s.name)}"><td>${i+1}</td><td class="l name">${esc(s.name)}</td><td>${s.end?'–':esc(s.ch)}</td><td class="c-${s.end?'':esc(s.st)}">${s.end?'–':(s.st==='pending'?'Pending':'Done')}</td><td class="l ${s.st==='review'?'warn':''}">${esc(s.note||'')}</td><td class="num">${esc(s.time||'')}</td></tr>`));
   document.querySelector('#tbl tbody').innerHTML=tb.join('');
   $('sheetcnt').textContent=`${r.filter(s=>!s.end).length} stores · ${f(tot)} km`;
   let h='';
   if(hasS)h+=`<li class="stop start"><span class="n">S</span><div><h3>${esc(data.start.name)}</h3><div class="meta"><span class="tag">Start</span>${data.start.time?`<span class="tag num" style="background:#2b1a00;color:var(--gold-l)">⏱ ${esc(data.start.time)}</span>`:''}</div></div><a class="open" href="${g(data.start)}" target="_blank" rel="noopener">Open location ↗</a></li>`;
   r.forEach((s,i)=>{const k=i+(hasS?1:0);
     if(k)h+=`<li class="hop num ${hops[k-1]===mx&&hops.length>1?'long':''}">↓ ${f(hops[k-1].d)} km</li>`;
-    h+=`<li class="stop ${esc(s.st)}"><span class="n num">${i+1}</span><div><h3>${esc(s.name)}</h3><div class="meta">${s.time?`<span class="tag num" style="background:#2b1a00;color:var(--gold-l)">⏱ ${esc(s.time)}</span>`:''}<span class="tag">${esc(s.ch)}</span><span class="tag s-${esc(s.st)}">${ST[s.st]||''}</span>${s.end?'<span class="tag" style="background:#2b1a00;color:var(--gold-l)">Final stop</span>':''}</div>${s.note?`<p class="note">${esc(s.note)}</p>`:''}</div><a class="open" href="${g(s)}" target="_blank" rel="noopener">Open location ↗</a>
+    h+=`<li class="stop ${esc(s.st)}"><span class="n num">${i+1}</span><div><h3 class="${PROFILES[s.name]?'clickable':''}" data-p="${esc(s.name)}">${esc(s.name)}</h3><div class="meta">${s.time?`<span class="tag num" style="background:#2b1a00;color:var(--gold-l)">⏱ ${esc(s.time)}</span>`:''}<span class="tag">${esc(s.ch)}</span><span class="tag s-${esc(s.st)}">${ST[s.st]||''}</span>${s.end?'<span class="tag" style="background:#2b1a00;color:var(--gold-l)">Final stop</span>':''}</div>${s.note?`<p class="note">${esc(s.note)}</p>`:''}</div><a class="open" href="${g(s)}" target="_blank" rel="noopener">Open location ↗</a>
     <div class="tools adm"><button data-a="up" data-id="${s.id}" ${i?'':'disabled'} aria-label="Move up">▲ Up</button><button data-a="down" data-id="${s.id}" ${i<r.length-1?'':'disabled'} aria-label="Move down">▼ Down</button><button data-a="edit" data-id="${s.id}">Edit / notes</button><button data-a="off" data-id="${s.id}" class="dng">Remove from route</button></div></li>`});
   $('list').innerHTML=h||'<li class="hint">No stops scheduled.</li>';
   const off=data.stores.filter(s=>!s.on||!hasLoc(s));
@@ -876,6 +918,23 @@ function render(fit){
   $('upd').textContent=data.updated?'Last updated '+new Date(data.updated).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})+'.':'';
   if(admin){try{localStorage.setItem(DRAFT,JSON.stringify(data))}catch(e){}}
 }
+const fmtT=v=>v==null?'–':(v>=100?Math.round(v):v>=10?v.toFixed(1):v.toFixed(2))+' t';
+const fmtP=v=>v==null?'–':v<.001&&v>0?'<0.1%':(v*100).toFixed(v>=.1?1:2)+'%';
+const fmtD=s=>s?new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'–';
+function openProfile(name){const p=PROFILES[name],s=data.stores.find(x=>x.name===name);if(!p)return;
+  const vs=p.t26!=null&&p.t25?p.t26/p.t25-1:null,mx=Math.max(p.t26||0,p.t25||0)||1;
+  $('p-kicker').textContent='Customer profile'+(s&&s.time?' · ETA '+s.time:'');$('p-name').textContent=name;$('p-sub').textContent=p.cname+' · '+p.ch;
+  const kv=o=>'<div class="kv">'+Object.entries(o).map(([k,v])=>`<div>${k}</div><div>${esc(v)}</div>`).join('')+'</div>';
+  $('p-body').innerHTML=(p.flag?`<div class="pf-flag">${esc(p.flag)}</div>`:'')+
+  `<div class="pf-tiles"><div class="tile"><b>${fmtT(p.t26)}</b><small>Tons 2026 YTD</small></div><div class="tile"><b>${fmtT(p.t25)}</b><small>Tons 2025 YTD</small></div><div class="tile"><b class="${vs==null?'':vs>=0?'up':'dn'}">${vs==null?'–':(vs>=0?'▲ ':'▼ ')+Math.abs(vs*100).toFixed(0)+'%'}</b><small>vs last year</small></div></div>`+
+  (p.t26!=null||p.t25!=null?`<div class="pf-sec"><h4>Volume trend</h4><div class="barz"><div class="b"><span>2026 YTD</span><i style="width:${(p.t26||0)/mx*100}%"></i><span>${fmtT(p.t26)}</span></div><div class="b ly"><span>2025 YTD</span><i style="width:${(p.t25||0)/mx*100}%"></i><span>${fmtT(p.t25)}</span></div></div></div>`:'')+
+  `<div class="pf-sec"><h4>Account</h4>${kv({'Customer No':p.cust,'Payer No':p.payer,'Channel':p.ch,'Region / Branch':p.region+' · '+p.branch,'Route':p.route,'Salesman':p.sales,'First invoice':fmtD(p.first),'Last invoice':fmtD(p.last)})}</div>`+
+  `<div class="pf-sec"><h4>Group & channel share</h4>${kv({'Payer tons 2026':fmtT(p.payerT),'Store % of payer':fmtP(p.pctPayer),'Outlets in group (KSA)':p.outlets,'Store % of group':fmtP(p.pctGroup),'Group % of channel':fmtP(p.grpCh),'Store % of channel':fmtP(p.pctCh)})}</div>`+
+  (s&&s.note?`<div class="pf-flag"><b>Visit note:</b> ${esc(s.note)}</div>`:'');
+  $('prof').showModal();$('p-body').scrollTop=0}
+$('p-close').onclick=()=>$('prof').close();
+$('prof').addEventListener('click',e=>{if(e.target===$('prof'))$('prof').close()});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-p]');if(!el||e.target.closest('button,a'))return;openProfile(el.dataset.p)});
 function toast(t,ms){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',ms||3500)}
 
 /* list actions */
